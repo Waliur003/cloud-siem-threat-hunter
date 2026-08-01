@@ -1,4 +1,4 @@
-// 1. Declare SIEM Datalake S3 Bucket
+// Declare SIEM Datalake S3 Bucket
 resource "aws_s3_bucket" "siem_datalake" {
   bucket        = var.siem_datalake_bucket
   force_destroy = true
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "siem_datalake" {
   }
 }
 
-// 2. Declare KMS Key for SIEM Datalake Bucket & CloudTrail Encryption
+// Declare KMS Key for SIEM Datalake Bucket & CloudTrail Encryption
 resource "aws_kms_key" "siem_datalake_kms" {
   description             = "KMS key for SIEM datalake bucket encryption"
   deletion_window_in_days = 10
@@ -48,13 +48,13 @@ resource "aws_kms_key" "siem_datalake_kms" {
   }
 }
 
-// 3. Declare KMS Key Alias
+// Declare KMS Key Alias
 resource "aws_kms_alias" "siem_datalake_kms_alias" {
   name          = "alias/siem-datalake-key"
   target_key_id = aws_kms_key.siem_datalake_kms.key_id
 }
 
-// 4. Declare Server-Side Encryption Configuration using KMS
+// Declare Server-Side Encryption Configuration using KMS
 resource "aws_s3_bucket_server_side_encryption_configuration" "siem_datalake_encryption" {
   bucket = aws_s3_bucket.siem_datalake.id
 
@@ -66,7 +66,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "siem_datalake_enc
   }
 }
 
-// 5. Declare Public Access Block Configuration for SIEM Datalake Bucket
+// Declare Public Access Block Configuration for SIEM Datalake Bucket
 resource "aws_s3_bucket_public_access_block" "siem_datalake_public_access_block" {
   bucket = aws_s3_bucket.siem_datalake.id
 
@@ -76,7 +76,7 @@ resource "aws_s3_bucket_public_access_block" "siem_datalake_public_access_block"
   restrict_public_buckets = true
 }
 
-// 6. Declare S3 Bucket Policy to Allow CloudTrail Log Delivery
+// Declare S3 Bucket Policy to Allow CloudTrail Log Delivery
 resource "aws_s3_bucket_policy" "siem_datalake_policy" {
   bucket = aws_s3_bucket.siem_datalake.id
 
@@ -110,7 +110,7 @@ resource "aws_s3_bucket_policy" "siem_datalake_policy" {
   })
 }
 
-// 7. Declare AWS CloudTrail Resource Pointing to SIEM Datalake Bucket
+// Declare AWS CloudTrail Resource Pointing to SIEM Datalake Bucket
 resource "aws_cloudtrail" "siem_datalake_trail" {
   name                          = "siem-cloudtrail-stream"
   s3_bucket_name                = aws_s3_bucket.siem_datalake.id
