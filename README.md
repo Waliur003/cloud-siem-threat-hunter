@@ -208,11 +208,17 @@ Exports the S3 Data Lake ARN, Athena Query Workgroup ID, and SNS Topic ARN.
 
 Displays Amazon Athena executing Query 1 (`SIEM_01_Live_CloudTrail_Stream`) against table `default.cloudtrail_logs_cloud_siem_security_datalake_cloudtrail`. The query returned 10 live log rows (`PutObject`, `GenerateDataKey`, `GetBucketAcl`), scanning 105.22 KB of data and confirming that CloudTrail JSON events are being ingested and parsed correctly.
 
+<img width="1918" height="1210" alt="Screenshot 1" src="https://github.com/user-attachments/assets/11de61ef-ac6f-49ae-b7ca-bb444fb564f5" />
+
+
 ---
 
 ### 2. Real-Time Access Denied Threat Detection (Athena Query 2)
 
 Shows Amazon Athena running Query 2 (`SIEM_02_Hunt_Access_Denied`). The query isolated 4 live `AccessDenied` security events (`PutObject` and `HeadBucket` operations) originating from `delivery.logs.amazonaws.com` on `s3.amazonaws.com`, verifying that the threat hunting query filters noise to highlight security anomalies.
+
+<img width="1918" height="1024" alt="Screenshot 2" src="https://github.com/user-attachments/assets/aa9c60b9-a3f5-4ae4-9360-bf03d10aeb7a" />
+
 
 ---
 
@@ -220,11 +226,17 @@ Shows Amazon Athena running Query 2 (`SIEM_02_Hunt_Access_Denied`). The query is
 
 Captures Amazon Athena running Query 3 (`SIEM_03_Detect_Root_Account`) searching for `useridentity.type = 'Root'`. The query scanned 105.22 KB of telemetry and returned 0 results (`Results (0)`), validating query execution and confirming that no unauthorized Root user actions occurred during the audit period.
 
+<img width="1919" height="908" alt="Screenshot 3" src="https://github.com/user-attachments/assets/df70eb9f-c2b7-4b6b-b96f-b32fd3d522a5" />
+
+
 ---
 
 ### 4. Blocked VPC Network Perimeter Traffic Probes (Athena Query 4)
 
 Displays Amazon Athena executing Query 4 (`SIEM_04_Hunt_Rejected_VPC`) against `cloud_siem_db.vpc_flow_logs`. The query aggregated blocked network traffic (`action = 'REJECT'`), confirming that the network telemetry schema is properly configured to track external IP port scans.
+
+<img width="1919" height="913" alt="Screenshot 4" src="https://github.com/user-attachments/assets/ea6688cd-5c6e-41b1-8601-6ce82c815946" />
+
 
 ---
 
@@ -232,17 +244,26 @@ Displays Amazon Athena executing Query 4 (`SIEM_04_Hunt_Rejected_VPC`) against `
 
 Shows the execution of the SQL DDL statement (`CREATE EXTERNAL TABLE IF NOT EXISTS cloud_siem_db.vpc_flow_logs...`) in Amazon Athena. This statement established the columnar schema mapping for VPC Flow Logs within the AWS Glue Data Catalog.
 
+<img width="1919" height="830" alt="Screenshot 5" src="https://github.com/user-attachments/assets/678222ca-fdbd-4e43-83b5-df31fa276610" />
+
+
 ---
 
 ### 6. Amazon EventBridge Automated Threat Detection Rule & Target Binding
 
 Captures the Amazon EventBridge console displaying the active rule `SIEM-AccessDenied-Detection-Rule`. The review screen confirms that the custom event pattern matches `AccessDenied` and `UnauthorizedOperation` errors, with the target bound to SNS Topic `siem-security-alerts`.
 
+<img width="1918" height="1156" alt="Screenshot 6" src="https://github.com/user-attachments/assets/3a29c827-8060-4930-94b5-80370f2a2b47" />
+
+
 ---
 
 ### 7. Live Amazon SNS Automated Real-Time Email Alert Payload
 
 Captures a live security notification email delivered to the SOC inbox from `AWS Notifications <no-reply@sns.amazonaws.com>`. The email contains JSON threat details (`"errorCode": "AccessDenied"`, `"eventName": "GetObject"`), matching Event ID `179c1f24-b48a-4fb6-fbb2-5f359e55fadb` and confirming end-to-end automated alerting.
+
+<img width="1626" height="257" alt="Screenshot 7" src="https://github.com/user-attachments/assets/05e2622e-9886-439e-b8a2-9b9657dbf848" />
+
 
 ---
 
