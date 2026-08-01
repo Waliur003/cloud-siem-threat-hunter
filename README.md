@@ -48,23 +48,8 @@ Relying on manual log reviews or unaggregated cloud telemetry introduces critica
 
 ## Architecture Diagram
 
-```text
-[ AWS Environment ]
-   │
-   ├─► AWS CloudTrail Logs ────┐
-   │                          │
-   └─► VPC Flow Logs ─────────┼──► [ S3 Security Data Lake ] ──► [ AWS Glue Data Catalog ]
-                              │       (KMS Encrypted)                   │
-                              │                                         ▼
-                              ├─► [ Amazon EventBridge ]       [ Amazon Athena SQL Engine ]
-                              │      (Threat Rule Pattern)              │
-                              │               │                         ▼
-                              │               ▼              (Threat Hunting Queries)
-                              └──────► [ Amazon SNS Topic ]
-                                              │
-                                              ▼
-                                     [ SOC Email Alert ]
-```
+<img width="1169" height="713" alt="Architecture Diagram" src="https://github.com/user-attachments/assets/9d0ecda0-c247-4b17-a78d-9aa094c382d6" />
+
 
 ---
 
