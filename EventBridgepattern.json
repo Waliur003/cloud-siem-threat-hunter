@@ -1,0 +1,6 @@
+{
+  "source": ["aws.s3", "custom.siem"],
+  "detail": {
+    "errorCode": ["AccessDenied", "UnauthorizedOperation"]
+  }
+}
