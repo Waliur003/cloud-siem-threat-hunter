@@ -1,4 +1,4 @@
-// 1. Declare Athena Workgroup with Encrypted S3 Output
+// Declare Athena Workgroup with Encrypted S3 Output
 resource "aws_athena_workgroup" "siem_workgroup" {
   name = "siem_workgroup"
 
@@ -17,7 +17,7 @@ resource "aws_athena_workgroup" "siem_workgroup" {
   }
 }
 
-// 2. Query 1: Live CloudTrail Stream
+// Query 1: Live CloudTrail Stream
 resource "aws_athena_named_query" "siem_01_live_cloudtrail_stream" {
   name      = "SIEM_01_Live_CloudTrail_Stream"
   workgroup = aws_athena_workgroup.siem_workgroup.id
@@ -25,7 +25,7 @@ resource "aws_athena_named_query" "siem_01_live_cloudtrail_stream" {
   query     = "SELECT eventtime, eventsource, eventname, sourceipaddress, useridentity.username AS actor FROM default.cloudtrail_logs_cloud_siem_security_datalake_cloudtrail ORDER BY eventtime DESC LIMIT 10;"
 }
 
-// 3. Query 2: Hunt Access Denied Anomalies
+// Query 2: Hunt Access Denied Anomalies
 resource "aws_athena_named_query" "siem_02_hunt_access_denied" {
   name      = "SIEM_02_Hunt_Access_Denied"
   workgroup = aws_athena_workgroup.siem_workgroup.id
@@ -33,7 +33,7 @@ resource "aws_athena_named_query" "siem_02_hunt_access_denied" {
   query     = "SELECT eventtime, useridentity.username AS actor, sourceipaddress, eventsource, eventname, errorcode, errormessage FROM default.cloudtrail_logs_cloud_siem_security_datalake_cloudtrail WHERE errorcode IS NOT NULL AND (errorcode LIKE '%Denied%' OR errorcode LIKE '%Unauthorized%') ORDER BY eventtime DESC LIMIT 20;"
 }
 
-// 4. Query 3: Detect Root Account Usage
+// Query 3: Detect Root Account Usage
 resource "aws_athena_named_query" "siem_03_detect_root_account" {
   name      = "SIEM_03_Detect_Root_Account"
   workgroup = aws_athena_workgroup.siem_workgroup.id
@@ -41,7 +41,7 @@ resource "aws_athena_named_query" "siem_03_detect_root_account" {
   query     = "SELECT eventtime, eventsource, eventname, sourceipaddress, useragent FROM default.cloudtrail_logs_cloud_siem_security_datalake_cloudtrail WHERE useridentity.type = 'Root' ORDER BY eventtime DESC;"
 }
 
-// 5. Query 4: Hunt Rejected VPC Flow Logs
+// Query 4: Hunt Rejected VPC Flow Logs
 resource "aws_athena_named_query" "siem_04_hunt_rejected_vpc" {
   name      = "SIEM_04_Hunt_Rejected_VPC"
   workgroup = aws_athena_workgroup.siem_workgroup.id

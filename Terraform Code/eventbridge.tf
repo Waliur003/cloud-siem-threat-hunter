@@ -1,4 +1,4 @@
-// 1. Declare EventBridge Rule for AccessDenied Alerts
+// Declare EventBridge Rule for AccessDenied Alerts
 resource "aws_cloudwatch_event_rule" "siem_access_denied_rule" {
   name        = "SIEM-AccessDenied-Detection-Rule"
   description = "Triggers alerts when AccessDenied or UnauthorizedOperation errors occur"
@@ -16,7 +16,7 @@ resource "aws_cloudwatch_event_rule" "siem_access_denied_rule" {
   }
 }
 
-// 2. Declare EventBridge Target to SNS Topic
+// Declare EventBridge Target to SNS Topic
 resource "aws_cloudwatch_event_target" "sns_target" {
   rule      = aws_cloudwatch_event_rule.siem_access_denied_rule.name
   target_id = "SendToSNS"

@@ -1,4 +1,4 @@
-// 1. Declare SNS Topic for SIEM Alerts
+// Declare SNS Topic for SIEM Alerts
 resource "aws_sns_topic" "siem_alerts" {
   name = "siem-security-alerts"
 
@@ -8,14 +8,14 @@ resource "aws_sns_topic" "siem_alerts" {
   }
 }
 
-// 2. Declare SNS Topic Email Subscription
+// Declare SNS Topic Email Subscription
 resource "aws_sns_topic_subscription" "email_subscription" {
   topic_arn = aws_sns_topic.siem_alerts.arn
   protocol  = "email"
   endpoint  = var.alert_email
 }
 
-// 3. Declare SNS Topic Access Policy Allowing EventBridge Publishing
+// Declare SNS Topic Access Policy Allowing EventBridge Publishing
 resource "aws_sns_topic_policy" "siem_alerts_policy" {
   arn = aws_sns_topic.siem_alerts.arn
 
