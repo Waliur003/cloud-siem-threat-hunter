@@ -1,6 +1,4 @@
-# Cloud Security Engineering Project 8: Automated AWS Cloud Threat Hunter & SIEM Platform
-
-## S3 Security Data Lake, Athena SQL Engine & EventBridge/SNS Real-Time Alerting
+# Cloud Security Engineering Project 8: Automated AWS Cloud Threat Hunter & SIEM Platform (S3 Security Data Lake, Athena SQL Engine & EventBridge/SNS Real-Time Alerting)
 
 ---
 
